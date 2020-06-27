@@ -1,0 +1,24 @@
+# list列表和set集合
+
+## list vs set
+
+* set
+    * 适用于检测某元素是否在集合内、对集合进行一定的数学操作
+    * 不支持indexing，slicing
+* list
+    * 普通的数组
+    * 支持indexing，slicing
+
+## 把list换成set
+
+```python
+someSet = set([])
+for eachItem in someList:
+    someSet.add(eachItem)
+```
+
+## set集合转换为字符串
+
+```python
+someSetStr = ", ".join(someSet)
+```
