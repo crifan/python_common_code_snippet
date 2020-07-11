@@ -4,6 +4,8 @@
 
 https://github.com/crifan/crifanLibPython/blob/master/crifanLib/crifanFile.py
 
+---
+
 ## Python3 str转bytes
 
 Python 3中，把字符串转换成字节码，可以有两种写法：

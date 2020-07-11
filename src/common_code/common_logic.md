@@ -179,3 +179,96 @@ isIntoDetailOk = CommonUtils.multipleRetry(
     sleepInterval = 0.5,
 )
 ```
+
+### 新版：新增参数isRespFullRetValue
+
+后续优化新增参数：是否返回完整信息
+
+代码：
+
+```python
+def multipleRetry(functionInfoDict, maxRetryNum=5, sleepInterval=0.1, isShowErrWhenFail=True, isRespFullRetValue=False):
+    """do something, retry if single call failed, retry mutiple time until max retry number
+
+    Args:
+        functionInfoDict (dict): function info dict contain functionCallback and [optional] functionParaDict
+        maxRetryNum (int): max retry number
+        sleepInterval (float): sleep time (seconds) of each interval when fail
+        isShowErrWhenFail (bool): show error when fail if true
+        isRespFullRetValue (bool): whether return full return value of function call
+    Returns:
+        isRespFullRetValue=False: bool
+        isRespFullRetValue=True: bool / tuple/list/...
+    Raises:
+    """
+    finalReturnValue = None
+    doSuccess = False
+    functionCallback = functionInfoDict["functionCallback"]
+    functionParaDict = functionInfoDict.get("functionParaDict", None)
+
+    curRetryNum = maxRetryNum
+    while curRetryNum > 0:
+        if functionParaDict:
+            # doSuccess = functionCallback(**functionParaDict)
+            respValue = functionCallback(**functionParaDict)
+        else:
+            # doSuccess = functionCallback()
+            respValue = functionCallback()
+        
+        doSuccess = False
+        if isinstance(respValue, bool):
+            doSuccess = bool(respValue)
+        elif isinstance(respValue, tuple):
+            doSuccess = bool(respValue[0])
+        elif isinstance(respValue, list):
+            doSuccess = bool(respValue[0])
+        else:
+            Exception("multipleRetry: Not support type of return value: %s" % respValue)
+
+        if doSuccess:
+            if isRespFullRetValue:
+                finalReturnValue = respValue
+            else:
+                finalReturnValue = doSuccess
+            break
+
+        time.sleep(sleepInterval)
+        curRetryNum -= 1
+
+    if not doSuccess:
+        if isShowErrWhenFail:
+            functionName = str(functionCallback)
+            # '<bound method DevicesMethods.switchToAppStoreSearchTab of <src.AppCrawler.AppCrawler object at 0x1053abe80>>'
+            logging.error("Still fail after %d retry for %s", maxRetryNum, functionName)
+    # return doSuccess
+    return finalReturnValue
+```
+
+调用举例：
+
+(1)默认不返回完整信息，只返回bool值
+
+```python
+respBoolOrTuple = CommonUtils.multipleRetry(
+    functionInfoDict = {
+        "functionCallback": self.isGotoPayPopupPage,
+        "functionParaDict": {
+            "isRespLocation": False,
+        },
+    },
+)
+```
+
+(2)返回完整信息
+
+```python
+respBoolOrTuple = CommonUtils.multipleRetry(
+    functionInfoDict = {
+        "functionCallback": self.isGotoPayPopupPage,
+        "functionParaDict": {
+            "isRespLocation": True,
+        },
+    },
+    isRespFullRetValue = True,
+)
+```

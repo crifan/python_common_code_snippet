@@ -22,3 +22,26 @@ for eachItem in someList:
 ```python
 someSetStr = ", ".join(someSet)
 ```
+
+## 把列表转为python正则中的group中可能出现的选项
+
+```python
+def listToPatternGroup(curList):
+    """Convert list to pattern group"""
+    patternGroupList = list(map(lambda curType: "(%s)" % curType, curList)) # ['(loan)', '(card)', '(finance)', '(yimei)', '(qiche)', '(rxyun)', '(fengyun)', '(fibodt)']
+    groupP = "|".join(patternGroupList) # '(loan)|(card)|(finance)|(yimei)|(qiche)|(rxyun)|(fengyun)|(fibodt)'
+    return groupP
+```
+
+调用：
+
+```python
+ValidPlatformTypeList = ["iOS", "Android"]
+ValidPlatformRule = listToPatternGroup(ValidPlatformTypeList) # '(iOS)|(Android)'
+```
+
+目的是用于后续的正则判断
+
+```python
+TaskFilenamePattern = "(?P<taskDate>\d+)_(?P<businessType>%s)_(?P<taskName>[a-zA-Z\d]+)_(?P<crawlerType>%s)(_(?P<platform>%s))?" % (ValidBusinessTypeRule, ValidCrawlerTypeRule, ValidPlatformRule)
+```

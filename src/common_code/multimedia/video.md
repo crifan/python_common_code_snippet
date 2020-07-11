@@ -24,4 +24,4 @@ if not os.path.exists(outputAudioFullpath):
 
 可以从mp4中提取出mp3音频：
 
-![ffmpeg_extract_audio_segment](../assets/img/ffmpeg_extract_audio_segment.png)
+![ffmpeg_extract_audio_segment](../../assets/img/ffmpeg_extract_audio_segment.png)

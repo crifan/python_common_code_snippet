@@ -1,10 +1,5 @@
 # 音频
 
-详见：
-
-* https://github.com/crifan/crifanLibPython/blob/master/crifanLib/crifanMultimedia.py
-* https://github.com/crifan/crifanLibPython/blob/master/crifanLib/demo/crifanMultimediaDemo.py
-
 ## 播放音频
 
 ### 树莓派中用python播放音频
@@ -91,7 +86,7 @@ if gCurSubProcess:
 
 * 正在播放：返回isTerminated为`null`
 * 被终止后，返回isTerminated为`4`
-  * ![resp_audio_isterminated_4](../assets/img/resp_audio_isterminated_4.png)
+  * ![resp_audio_isterminated_4](../../assets/img/resp_audio_isterminated_4.png)
 
 播放的效果：
 
@@ -100,7 +95,7 @@ mac系统中播放音频
 PyCharm的console中输出当前播放的信息 -》 如果是mac的terminal中，则是覆盖式的，不会这么多行
 同时弹框GUI窗口
 
-![mac_python_mpv_play_audio](../assets/img/mac_python_mpv_play_audio.png)
+![mac_python_mpv_play_audio](../../assets/img/mac_python_mpv_play_audio.png)
 
 ## mp3
 
@@ -194,11 +189,11 @@ if __name__ == "__main__":
 对应的音频文件，用MediaInfo检测出的信息：
 
 * 正常mp3
-  * ![audio_file_mp3_mediainfo](../assets/img/audio_file_mp3_mediainfo.png)
-  * ![audio_file_mp3_two_channel](../assets/img/audio_file_mp3_two_channel.png)
+  * ![audio_file_mp3_mediainfo](../../assets/img/audio_file_mp3_mediainfo.png)
+  * ![audio_file_mp3_two_channel](../../assets/img/audio_file_mp3_two_channel.png)
 * 异常mp3：
   * 故意把png图片改成mp3
-    * ![png_as_wrong_audio](../assets/img/png_as_wrong_audio.png)
+    * ![png_as_wrong_audio](../../assets/img/png_as_wrong_audio.png)
 
 输出：
 

@@ -1,5 +1,35 @@
 # 文件
 
+## 获取文件最后更新时间
+
+```python
+import os
+
+def getUpdateTime(curFileOrPath):
+    """get file/folder latest update time = modify time
+
+    Args:
+        curFileOrPath (str): some file or folder path
+    Returns:
+        int: time stamp int of 13 digit, with milliseconds
+    Raises:
+    """
+    updateTime = None
+    try:
+        modifyTime = os.path.getmtime(curFileOrPath) # 1593748641.3270357
+        updateTime = int(modifyTime * 1000) # 1593748641327
+    except OSError as err:
+        errMsg = str(err)
+        # print("errMsg=%s" % errMsg)
+        pass
+
+    return updateTime
+```
+
+详见：
+
+【已解决】Python中获取文件最后更新时间
+
 ## 提取文件名后缀
 
 ```python
@@ -30,7 +60,30 @@ def createEmptyFile(fullFilename):
         os.utime(fullFilename, None)
 ```
 
-## 保存（二进制）数据到文件
+## 读取文件二进制数据
+
+```python
+def readBinDataFromFile(fileToRead):
+    """Read binary data from file"""
+    binaryData = None
+    try:
+        readFp = open(fileToRead, "rb")
+        binaryData = readFp.read()
+        readFp.close()
+    except:
+        binaryData = None
+
+
+    return binaryData
+```
+
+调用：
+
+```python
+imgBinData = readBinDataFromFile(imageFullPath)
+```
+
+## 保存二进制数据到文件
 
 ```python
 def saveDataToFile(fullFilename, binaryData):

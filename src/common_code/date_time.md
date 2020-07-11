@@ -4,6 +4,8 @@
 
 https://github.com/crifan/crifanLibPython/blob/master/crifanLib/crifanDatetime.py
 
+---
+
 ## getCurDatetimeStr 生成当前日期时间字符串
 
 ```python

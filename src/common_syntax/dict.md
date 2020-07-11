@@ -15,6 +15,30 @@
 
 为了防止出现`KeyError`，注意确保要删除的key都是存在的，否则就要先判断存在，再去删除。
 
+## OrderedDict
+
+### 想要获取OrderedDict的最后一个item（的key和value）
+
+```python
+next(reversed(someOrderedDict.items()))
+```
+
+另外，只需要获取最后一个元素的key，则可以：
+
+```python
+next(reversed(someOrderedDict.keys()))
+```
+
+或：
+
+```python
+next(reversed(someOrderedDict))
+```
+
+详见：
+
+【已解决】Python中获取OrderedDict中最后一个元素
+
 ## 合并2个dict的值
 
 （1）如果无需保留原有（第一个dict）的值，则用update即可：

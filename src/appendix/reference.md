@@ -23,6 +23,8 @@
 * 【已解决】Python 3中md5报错：Unicode-objects must be encoded before hashing
 * 【已解决】Python 3中判断变量类型
 * 【已解决】Python中删除字典dict中的键值
+* 【已解决】Python中获取文件最后更新时间
+* 【已解决】Python中获取OrderedDict中最后一个元素
 * 
 * [【已解决】python中判断单个或多个单词是否是全部小写或首字母小写](http://www.crifan.com/python_check_single_or_multiple_word_all_low_case_or_first_low_case)
 * [【已解决】Python中如何让Enum的字符串输出字段的值而不带类型的前缀 – 在路上](https://www.crifan.com/python_output_enum_value_without_type_prefix/)

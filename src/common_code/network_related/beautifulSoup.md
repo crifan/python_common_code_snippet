@@ -1,5 +1,9 @@
 # BeautifulSoup
 
+用网络库下载到页面源码后，就是去解析（HTML等）内容了。
+
+Python中最常用的HTML（和XML）解析库之一就是：`BeautifulSoup`
+
 ## 从xml转换出soup
 
 背景：

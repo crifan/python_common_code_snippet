@@ -4,6 +4,8 @@
 
 https://github.com/crifan/crifanLibPython/blob/master/crifanLib/crifanMath.py
 
+---
+
 ## md5
 
 ### md5计算
