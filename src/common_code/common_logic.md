@@ -182,7 +182,9 @@ isIntoDetailOk = CommonUtils.multipleRetry(
 
 ### 新版：新增参数isRespFullRetValue
 
-后续优化新增参数：是否返回完整信息
+此处最后更新：`20200925`
+
+后续多次优化新增参数：是否返回完整信息
 
 代码：
 
@@ -225,11 +227,12 @@ def multipleRetry(functionInfoDict, maxRetryNum=5, sleepInterval=0.1, isShowErrW
         else:
             Exception("multipleRetry: Not support type of return value: %s" % respValue)
 
+        if isRespFullRetValue:
+            finalReturnValue = respValue
+        else:
+            finalReturnValue = doSuccess
+
         if doSuccess:
-            if isRespFullRetValue:
-                finalReturnValue = respValue
-            else:
-                finalReturnValue = doSuccess
             break
 
         time.sleep(sleepInterval)
