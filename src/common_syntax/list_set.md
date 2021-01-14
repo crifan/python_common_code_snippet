@@ -28,8 +28,8 @@ someSetStr = ", ".join(someSet)
 ```python
 def listToPatternGroup(curList):
     """Convert list to pattern group"""
-    patternGroupList = list(map(lambda curType: "(%s)" % curType, curList)) # ['(loan)', '(card)', '(finance)', '(yimei)', '(qiche)', '(rxyun)', '(fengyun)', '(fibodt)']
-    groupP = "|".join(patternGroupList) # '(loan)|(card)|(finance)|(yimei)|(qiche)|(rxyun)|(fengyun)|(fibodt)'
+    patternGroupList = list(map(lambda curType: "(%s)" % curType, curList)) # ['(aaa)', '(bbb)', '(ccc)', '(zzz)', '(eee)', '(yyy)', '(ddd)', '(xxx)']
+    groupP = "|".join(patternGroupList) # '(aaa)|(bbb)|(ccc)|(zzz)|(eee)|(yyy)|(ddd)|(xxx)'
     return groupP
 ```
 

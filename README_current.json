@@ -1,6 +1,6 @@
 {
   "latestVersion": "v1.2",
-  "lastUpdate": "20200925",
+  "lastUpdate": "20210114",
   "gitRepoName": "python_common_code_snippet",
   "bookName": "Python常用代码段",
   "bookDescription": "整理出crifan总结的Python各个方面常用的代码段，供需要的参考。包括通用逻辑、变量、系统、日期时间、字符和字符串、文件系统，比如文件和文件夹等、以及第三方库，比如BeautifulSoup、以及多媒体音视频类、包括Pillow、以及网络的Requests等；以及其他常见语法，包括dict字典、list列表、set集合、enum枚举、collections集合等。"
