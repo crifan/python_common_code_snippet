@@ -25,7 +25,8 @@
 * 【已解决】Python中删除字典dict中的键值
 * 【已解决】Python中获取文件最后更新时间
 * 【已解决】Python中获取OrderedDict中最后一个元素
-* 
+* [【记录】python中smtp发送gmail邮箱](http://www.crifan.com/python_smtp_send_gmail_email)
+* [【已解决】Python中smtp如何发送多个收件人地址且带名字的且可以被格式化](https://www.crifan.com/python_use_smtp_how_send_multiple_receiver_address_with_name_and_can_be_format/)
 * [【已解决】python中判断单个或多个单词是否是全部小写或首字母小写](http://www.crifan.com/python_check_single_or_multiple_word_all_low_case_or_first_low_case)
 * [【已解决】Python中如何让Enum的字符串输出字段的值而不带类型的前缀 – 在路上](https://www.crifan.com/python_output_enum_value_without_type_prefix/)
 * [【已解决】Python中给枚举添加内置函数或属性](http://www.crifan.com/python_add_buildin_function_or_property_for_enum)
@@ -36,6 +37,7 @@
 * [【已解决】Python中把list换成set](http://www.crifan.com/python_change_list_to_set)
 * [【整理】python中一次性创建多级文件夹，判断一个文件夹是否已经存在 – 在路上](https://www.crifan.com/python_check_folder_exist_create_multiple_level_folder_once/)
 * [【已解决】Python中如何递归的删除整个非空文件夹 – 在路上](https://www.crifan.com/python_recursively_delete_non_empty_folder/)
+* [Python表格处理：CSV和Excel](http://book.crifan.com/books/python_process_csv_excel/website)
 * 
 * [python - Correct way to write line to file? - Stack Overflow](https://stackoverflow.com/questions/6159900/correct-way-to-write-line-to-file)
 * [How do you do a simple "chmod +x" from within python? - Stack Overflow](https://stackoverflow.com/questions/12791997/how-do-you-do-a-simple-chmod-x-from-within-python)
