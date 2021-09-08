@@ -1,7 +1,7 @@
 # Python常用代码段
 
-* 最新版本：`v1.3`
-* 更新时间：`20210413`
+* 最新版本：`v1.5`
+* 更新时间：`20210817`
 
 ## 简介
 
@@ -21,14 +21,14 @@
 
 ### 在线浏览
 
-* [Python常用代码段 book.crifan.com](http://book.crifan.com/books/python_common_code_snippet/website)
+* [Python常用代码段 book.crifan.com](https://book.crifan.com/books/python_common_code_snippet/website)
 * [Python常用代码段 crifan.github.io](https://crifan.github.io/python_common_code_snippet/website)
 
 ### 离线下载阅读
 
-* [Python常用代码段 PDF](http://book.crifan.com/books/python_common_code_snippet/pdf/python_common_code_snippet.pdf)
-* [Python常用代码段 ePub](http://book.crifan.com/books/python_common_code_snippet/epub/python_common_code_snippet.epub)
-* [Python常用代码段 Mobi](http://book.crifan.com/books/python_common_code_snippet/mobi/python_common_code_snippet.mobi)
+* [Python常用代码段 PDF](https://book.crifan.com/books/python_common_code_snippet/pdf/python_common_code_snippet.pdf)
+* [Python常用代码段 ePub](https://book.crifan.com/books/python_common_code_snippet/epub/python_common_code_snippet.epub)
+* [Python常用代码段 Mobi](https://book.crifan.com/books/python_common_code_snippet/mobi/python_common_code_snippet.mobi)
 
 ## 版权说明
 

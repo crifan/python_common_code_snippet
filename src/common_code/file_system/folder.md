@@ -111,3 +111,35 @@ def osPathDemo():
 if __name__ == "__main__":
     osPathDemo()
 ```
+
+## 列出目录中的文件（和文件夹，且支持递归）
+
+```python
+def listSubfolderFiles(subfolder, isIncludeFolder=True, isRecursive=False):
+    """os.listdir recursively
+
+    Args:
+        subfolder (str): sub folder path
+        isIncludeFolder (bool): whether is include folder. Default is True. If True, result contain folder
+        isRecursive (bool): whether is recursive, means contain sub folder. Default is False
+    Returns:
+        list of str
+    Raises:
+    """
+    allSubItemList = []
+    curSubItemList = os.listdir(path=subfolder)
+    for curSubItem in curSubItemList:
+        curSubItemFullPath = os.path.join(subfolder, curSubItem)
+        if os.path.isfile(curSubItemFullPath):
+            allSubItemList.append(curSubItemFullPath)
+        else:
+            if isIncludeFolder:
+                if os.path.isdir(curSubItemFullPath):
+                    subSubItemList = listSubfolderFiles(curSubItemFullPath, isIncludeFolder, isRecursive)
+                    allSubItemList.extend(subSubItemList)
+
+    if isIncludeFolder:
+        allSubItemList.append(subfolder)
+
+    return allSubItemList
+```

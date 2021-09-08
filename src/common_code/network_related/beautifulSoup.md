@@ -4,6 +4,26 @@
 
 Python中最常用的HTML（和XML）解析库之一就是：`BeautifulSoup`
 
+* 最新代码详见：https://github.com/crifan/crifanLibPython/blob/master/python3/crifanLib/thirdParty/crifanBeautifulsoup.py
+
+## 从html转soup
+
+```python
+from bs4 import BeautifulSoup
+
+def htmlToSoup(curHtml):
+    """convert html to soup
+
+    Args:
+        curHtml (str): html str
+    Returns:
+        soup
+    Raises:
+    """
+    soup = BeautifulSoup(curHtml, 'html.parser')
+    return soup
+```
+
 ## 从xml转换出soup
 
 背景：
@@ -43,50 +63,143 @@ def xmlToSoup(xmlStr):
 
 获取到xml字符串后，去转换为soup
 
+## soup转html
+
+```python
+
+def soupToHtml(soup, isFormat=True):
+    """Convert soup to html string
+
+    Args:
+        soup (Soup): BeautifulSoup soup
+        isFormat (bool): use prettify to format html
+    Returns:
+        html (str)
+    Raises:
+    """
+    if isFormat:
+        curHtml = soup.prettify() # formatted html
+    else:
+        curHtml = str(soup) # not formatted html
+    return curHtml
+```
+
+## 获取soup节点所有的文字内容
+
+```python
+
+def getAllContents(curNode, isStripped=False):
+    """Get all contents of current and children nodes
+
+    Args:
+        curNode (soup node): current Beautifulsoup node
+        isStripped (bool): return stripped string or not
+    Returns:
+        str
+    Raises:
+    """
+    # codeSnippetStr = curNode.prettify()
+    # codeSnippetStr = curNode.string
+    # codeSnippetStr = curNode.contents
+    codeSnippetStr = ""
+    stringList = []
+    if isStripped:
+        stringGenerator = curNode.stripped_strings
+    else:
+        stringGenerator = curNode.strings
+
+    # stringGenerator = curNode.strings
+    for eachStr in stringGenerator:
+        # logging.debug("eachStr=%s", eachStr)
+        stringList.append(eachStr)
+    codeSnippetStr = "\n".join(stringList)
+    logging.debug("codeSnippetStr=%s", codeSnippetStr)
+    return codeSnippetStr
+```
+
+## 从html中提取title值
+
+```python
+def extractHtmlTitle_BeautifulSoup(htmlStr):
+    """
+    Extract title from html, use BeautifulSoup
+
+    Args:
+        htmlStr (str): html string
+    Returns:
+        str
+    Raises:
+    Examples:
+    """
+    curTitle = ""
+
+    soup = BeautifulSoup(htmlStr, "html.parser")
+    if soup:
+        if soup.title and soup.title.string:
+            curTitle = soup.title.string
+            curTitle = curTitle.strip()
+        else:
+            # logging.warning("Empty title for html: %s", htmlStr)
+            logging.debug("Empty title for html: %s", htmlStr)
+            # Empty title for html: <script type="text/javascript">top.location.href='https://login.zhongan.com/passport/login.htm?sourceApp=1&target=http://www.zhongan.com/open/member/loginJump?logincallback=%2Fahita';</script>
+
+            # for debug
+            if "<title>" not in htmlStr:
+                logging.warning("Special not incldue <title> html: %s", htmlStr)
+                # 'Illegal access address!\n'
+                # <script type="text/javascript">top.location.href='https://login.zhongan.com/passport/login.htm?sourceApp=1&target=http://www.zhongan.com/open/member/loginJump?logincallback=%2Fahita';</script>
+                # 
+    else:
+        logging.error("Failed to convert to soup for html: %s", htmlStr)
+        # 
+
+    return curTitle
+```
+
 ## 是否包含符合特定条件的soup节点
 
 ```python
-    def isContainSpecificSoup(soupList, elementName, isSizeValidCallback, matchNum=1):
-        """
-            判断BeautifulSoup的soup的list中，是否包含符合条件的特定的元素：
-                只匹配指定个数的元素才视为找到了
-                元素名相同
-                面积大小是否符合条件
-        Args:
-            elementName (str): element name
-            isSizeValidCallback (function): callback function to check whether element size(width * height) is valid or not
-            matchNum (int): sould only matched specific number consider as valid
-        Returns:
-            bool
-        Raises:
-        """
-        isFound = False
+def isContainSpecificSoup(soupList, elementName, isSizeValidCallback, matchNum=1):
+    """
+        判断BeautifulSoup的soup的list中，是否包含符合条件的特定的元素：
+            只匹配指定个数的元素才视为找到了
+            元素名相同
+            面积大小是否符合条件
+    Args:
+        elementName (str): element name
+        isSizeValidCallback (function): callback function to check whether element size(width * height) is valid or not
+        matchNum (int): sould only matched specific number consider as valid
+    Returns:
+        bool
+    Raises:
+    """
+    isFound = False
 
-        matchedSoupList = []
+    matchedSoupList = []
 
-        for eachSoup in soupList:
-            # if hasattr(eachSoup, "tag"):
-            if hasattr(eachSoup, "name"):
-                # curSoupTag = eachSoup.tag
-                curSoupTag = eachSoup.name
-                if curSoupTag == elementName:
-                    if hasattr(eachSoup, "attrs"):
-                        soupAttr = eachSoup.attrs
-                        soupWidth = int(soupAttr["width"])
-                        soupHeight = int(soupAttr["height"])
-                        curSoupSize = soupWidth * soupHeight # 326 * 270
-                        isSizeValid = isSizeValidCallback(curSoupSize)
-                        if isSizeValid:
-                            matchedSoupList.append(eachSoup)
+    for eachSoup in soupList:
+        # if hasattr(eachSoup, "tag"):
+        if hasattr(eachSoup, "name"):
+            # curSoupTag = eachSoup.tag
+            curSoupTag = eachSoup.name
+            if curSoupTag == elementName:
+                if hasattr(eachSoup, "attrs"):
+                    soupAttr = eachSoup.attrs
+                    soupWidth = int(soupAttr["width"])
+                    soupHeight = int(soupAttr["height"])
+                    curSoupSize = soupWidth * soupHeight # 326 * 270
+                    isSizeValid = isSizeValidCallback(curSoupSize)
+                    if isSizeValid:
+                        matchedSoupList.append(eachSoup)
 
-        matchedSoupNum = len(matchedSoupList)
-        if matchNum == 0:
+    matchedSoupNum = len(matchedSoupList)
+    if matchNum == 0:
+        isFound = True
+    else:
+        if matchedSoupNum == matchNum:
             isFound = True
-        else:
-            if matchedSoupNum == matchNum:
-                isFound = True
 
-        return isFound
+    return isFound
 ```
 
 说明：
@@ -150,74 +263,74 @@ def isNormalButtonSize(self, curSize):
 所以提取出公共函数，用于bs的find查找元素
 
 ```python
-    def bsChainFind(curLevelSoup, queryChainList):
-        """BeautifulSoup find with query chain
+def bsChainFind(curLevelSoup, queryChainList):
+    """BeautifulSoup find with query chain
 
-        Args:
-            curLevelSoup (soup): BeautifulSoup
-            queryChainList (list): str list of all level query dict
-        Returns:
-            soup
-        Raises:
-        Examples:
-            input: 
-                [
-                    {
-                        "tag": "XCUIElementTypeWindow",
-                        "attrs": {"visible":"true", "enabled":"true", "width": "%s" % ScreenX, "height": "%s" % ScreenY}
-                    },
-                    {
-                        "tag": "XCUIElementTypeButton",
-                        "attrs": {"visible":"true", "enabled":"true", "width": "%s" % ScreenX, "height": "%s" % ScreenY}
-                    },
-                    {
-                        "tag": "XCUIElementTypeStaticText",
-                        "attrs": {"visible":"true", "enabled":"true", "value":"可能离开微信，打开第三方应用"}
-                    },
-                ]
-            output:
-                soup node of 
-                    <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="可能离开微信，打开第三方应用" name="可能离开微信，打开第三方应用" label="可能离开微信，打开第三方应用" enabled="true" visible="true" x="71" y="331" width="272" height="18"/>
-                    in :
-                    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" x="0" y="0" width="414" height="736">
+    Args:
+        curLevelSoup (soup): BeautifulSoup
+        queryChainList (list): str list of all level query dict
+    Returns:
+        soup
+    Raises:
+    Examples:
+        input: 
+            [
+                {
+                    "tag": "XCUIElementTypeWindow",
+                    "attrs": {"visible":"true", "enabled":"true", "width": "%s" % ScreenX, "height": "%s" % ScreenY}
+                },
+                {
+                    "tag": "XCUIElementTypeButton",
+                    "attrs": {"visible":"true", "enabled":"true", "width": "%s" % ScreenX, "height": "%s" % ScreenY}
+                },
+                {
+                    "tag": "XCUIElementTypeStaticText",
+                    "attrs": {"visible":"true", "enabled":"true", "value":"可能离开微信，打开第三方应用"}
+                },
+            ]
+        output:
+            soup node of 
+                <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="可能离开微信，打开第三方应用" name="可能离开微信，打开第三方应用" label="可能离开微信，打开第三方应用" enabled="true" visible="true" x="71" y="331" width="272" height="18"/>
+                in :
+                <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" x="0" y="0" width="414" height="736">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" x="0" y="0" width="414" height="736">
                         <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" x="0" y="0" width="414" height="736">
                             <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" x="0" y="0" width="414" height="736">
-                                <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" x="0" y="0" width="414" height="736">
-                                    <XCUIElementTypeButton type="XCUIElementTypeButton" enabled="true" visible="true" x="0" y="0" width="414" height="736">
-                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" enabled="true" visible="false" x="47" y="288" width="0" height="0"/>
-                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="可能离开微信，打开第三方应用" name="可能离开微信，打开第三方应用" label="可能离开微信，打开第三方应用" enabled="true" visible="true" x="71" y="331" width="272" height="18"/>
-                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="取消" name="取消" label="取消" enabled="true" visible="true" x="109" y="409" width="36" height="22"/>
-                                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="继续" name="继续" label="继续" enabled="true" visible="true" x="269" y="409" width="36" height="22"/>
-                                    </XCUIElementTypeButton>
-                                </XCUIElementTypeOther>
+                                <XCUIElementTypeButton type="XCUIElementTypeButton" enabled="true" visible="true" x="0" y="0" width="414" height="736">
+                                    <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" enabled="true" visible="false" x="47" y="288" width="0" height="0"/>
+                                    <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="可能离开微信，打开第三方应用" name="可能离开微信，打开第三方应用" label="可能离开微信，打开第三方应用" enabled="true" visible="true" x="71" y="331" width="272" height="18"/>
+                                    <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="取消" name="取消" label="取消" enabled="true" visible="true" x="109" y="409" width="36" height="22"/>
+                                    <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="继续" name="继续" label="继续" enabled="true" visible="true" x="269" y="409" width="36" height="22"/>
+                                </XCUIElementTypeButton>
                             </XCUIElementTypeOther>
                         </XCUIElementTypeOther>
-                    </XCUIElementTypeWindow>
-        """
-        foundSoup = None
-        if queryChainList:
-            chainListLen = len(queryChainList)
+                    </XCUIElementTypeOther>
+                </XCUIElementTypeWindow>
+    """
+    foundSoup = None
+    if queryChainList:
+        chainListLen = len(queryChainList)
 
-            if chainListLen == 1:
-                # last one
-                curLevelFindDict = queryChainList[0]
-                curTag = curLevelFindDict["tag"]
-                curAttrs = curLevelFindDict["attrs"]
-                foundSoup = curLevelSoup.find(curTag, attrs=curAttrs)
-            else:
-                highestLevelFindDict = queryChainList[0]
-                curTag = highestLevelFindDict["tag"]
-                curAttrs = highestLevelFindDict["attrs"]
-                foundSoupList = curLevelSoup.find_all(curTag, attrs=curAttrs)
-                if foundSoupList:
-                    childrenChainList = queryChainList[1:]
-                    for eachSoup in foundSoupList:
-                        eachSoupResult = CommonUtils.bsChainFind(eachSoup, childrenChainList)
-                        if eachSoupResult:
-                            foundSoup = eachSoupResult
-                            break
+        if chainListLen == 1:
+            # last one
+            curLevelFindDict = queryChainList[0]
+            curTag = curLevelFindDict["tag"]
+            curAttrs = curLevelFindDict["attrs"]
+            foundSoup = curLevelSoup.find(curTag, attrs=curAttrs)
+        else:
+            highestLevelFindDict = queryChainList[0]
+            curTag = highestLevelFindDict["tag"]
+            curAttrs = highestLevelFindDict["attrs"]
+            foundSoupList = curLevelSoup.find_all(curTag, attrs=curAttrs)
+            if foundSoupList:
+                childrenChainList = queryChainList[1:]
+                for eachSoup in foundSoupList:
+                    eachSoupResult = CommonUtils.bsChainFind(eachSoup, childrenChainList)
+                    if eachSoupResult:
+                        foundSoup = eachSoupResult
+                        break
 
-        return foundSoup
+    return foundSoup
 ```
 
 举例：
@@ -375,4 +488,3 @@ blueCheckChainList = [
 blueCheckSoup = CommonUtils.bsChainFind(soup, blueCheckChainList)
 if blueCheckSoup:
 ```
-

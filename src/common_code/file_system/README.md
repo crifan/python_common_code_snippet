@@ -1,6 +1,6 @@
 # 文件系统
 
-详见：
+最新代码详见：
 
-* https://github.com/crifan/crifanLibPython/blob/master/crifanLib/crifanFile.py
-* https://github.com/crifan/crifanLibPython/blob/master/crifanLib/demo/crifanFileDemo.py
+* https://github.com/crifan/crifanLibPython/blob/master/python3/crifanLib/crifanFile.py
+* https://github.com/crifan/crifanLibPython/blob/master/python3/crifanLib/demo/crifanFileDemo.py
